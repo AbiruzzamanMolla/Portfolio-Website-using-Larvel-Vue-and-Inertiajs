@@ -5,36 +5,44 @@ import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
+import { Inertia } from "@inertiajs/inertia";
 
-defineProps({
+const props = defineProps({
   skills: Array,
+  project: Object,
 });
 
 const form = useForm({
-  name: "",
-  skill_id: "",
-  project_url: "",
+  name: props.project?.name,
+  skill_id: props.project?.skill_id,
+  project_url: props.project?.project_url,
   image: null,
 });
 
 const submit = () => {
-  form.post(route("projects.store"));
+  Inertia.post(`/projects/${props.project.id}`, {
+    _method: "put",
+    name: form.name,
+    image: form.image,
+    skill_id: form.skill_id,
+    project_url: form.project_url,
+  });
 };
 </script>
 
 <template>
-  <Head title="New Project" />
+  <Head title="Edit Project" />
 
   <AuthenticatedLayout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">New Project</h2>
+      <h2 class="font-semibold text-xl text-gray-800 leading-tight">Edit Project</h2>
     </template>
 
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="flex justify-end m-2 p-2">
           <Link
-            :href="route('projects.index')"
+            :href="route('skills.index')"
             class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white rounded-md"
           >
             Back
@@ -97,7 +105,7 @@ const submit = () => {
                 :class="{ 'opacity-25': form.processing }"
                 :disabled="form.processing"
               >
-                Store
+                Update
               </PrimaryButton>
             </div>
           </form>
