@@ -58,9 +58,9 @@ class ProjectController extends Controller
                 'image' => $image
             ]);
 
-            return Redirect::route('projects.index');
+            return Redirect::route('projects.index')->with('message', 'Project Created.');
         }
-        return Redirect::back();
+        return Redirect::back()->with('message', 'Project Create Failed!');
     }
     /**
      * Show the form for editing the specified resource.
@@ -105,7 +105,7 @@ class ProjectController extends Controller
             'project_url' => $request->project_url,
         ]);
         
-        return Redirect::route('projects.index');
+        return Redirect::route('projects.index')->with('message', 'Project Updated');
     }
 
     /**
@@ -118,6 +118,6 @@ class ProjectController extends Controller
     {
         Storage::delete($project->image);
         $project->delete();
-        return Redirect::route('projects.index');
+        return Redirect::route('projects.index')->with('message', 'Project Deleted');
     }
 }

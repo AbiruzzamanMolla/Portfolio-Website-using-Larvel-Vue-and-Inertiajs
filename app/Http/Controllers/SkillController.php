@@ -53,9 +53,9 @@ class SkillController extends Controller
                 'image' => $image
             ]);
 
-            return Redirect::route('skills.index');
+            return Redirect::route('skills.index')->with('message', 'Skill Created');
         }
-        return Redirect::back();
+        return Redirect::back()->with('message', 'Skill Create Failed!');
     }
 
 
@@ -97,7 +97,7 @@ class SkillController extends Controller
             'image' => $image
         ]);
         
-        return Redirect::route('skills.index');
+        return Redirect::route('skills.index')->with('message', 'Project Updated');
     }
 
     /**
@@ -110,6 +110,6 @@ class SkillController extends Controller
     {
         Storage::delete($skill->image);
         $skill->delete();
-        return Redirect::route('skills.index');
+        return Redirect::route('skills.index')->with('message', 'Skill Deleted');
     }
 }
