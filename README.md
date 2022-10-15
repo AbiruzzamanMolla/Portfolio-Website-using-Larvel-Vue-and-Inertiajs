@@ -1,3 +1,3 @@
 ## ToDo
 
-- [ ] Show flash message
+- [ ] hero section
