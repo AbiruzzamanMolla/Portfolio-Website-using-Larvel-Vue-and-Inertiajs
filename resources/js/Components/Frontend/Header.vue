@@ -1,6 +1,10 @@
 <template>
   <nav
-    class="bg-light-primary border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-dark-primary"
+    class="w-full fixed z-20 border-gray-200 px-2 sm:px-4 py-2.5 rounded"
+    :class="{
+      'bg-light-primary dark:bg-dark-primary': scrollBg,
+      'bg-white dark:bg-slate-800': !scrollBg,
+    }"
   >
     <div class="container flex flex-wrap justify-between items-center mx-auto">
       <a href="https://asliabir.github.io" class="flex items-center">
@@ -42,12 +46,12 @@
         id="navbar-default"
       >
         <ul
-          class="flex flex-col p-4 mt-4 rounded-lg border border-light-tail-100 dark:border-dark-navy-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 dark:border-gray-700"
+          class="flex flex-col p-4 mt-4 rounded-lg border border-light-tail-100 dark:border-dark-navy-100 md:flex-row md:space-x-8 md:mt-0 md:font-medium md:border-0 dark:border-gray-700"
         >
           <li v-for="(navigation, index) in navigations" :key="index">
             <a
               :href="navigation.href"
-              class="block py-2 pr-4 pl-3 text-white bg-light-tail-500 dark:bg-dark-navy-100 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+              class="block py-2 pr-4 pl-3 text-light-tail-100 dark:text-dark-navy-100 rounded hover:text-light-tail-500 dark:hover:text-dark-navy-500"
               aria-current="page"
               >{{ navigation.name }}</a
             >
@@ -59,9 +63,10 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
 const showMobileMenu = ref("false");
+const scrollBg = ref(false);
 
 const navigations = [
   { name: "Home", href: "#home" },
@@ -70,6 +75,16 @@ const navigations = [
   { name: "Services", href: "#services" },
   { name: "Contact", href: "#contact" },
 ];
+
+const setScrollBg = (value) => {
+  scrollBg.value = value;
+};
+
+onMounted(() => {
+  window.addEventListener("scroll", () => {
+    return window.scrollY > 50 ? setScrollBg(true) : setScrollBg(false);
+  });
+});
 </script>
 
 <style></style>

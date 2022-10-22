@@ -1,5 +1,16 @@
 <template>
-  <div class="bg-light-tail-100 dark:bg-dark-navy-500">
+  <div
+    class="bg-light-tail-100 dark:bg-dark-navy-500"
+    v-motion
+    :initial="{
+      opacity: 0,
+      y: 100,
+    }"
+    :visible="{
+      opacity: 1,
+      y: 0,
+    }"
+  >
     <div
       class="container mx-auto py-12 px-4 sm:px-6 lg:flex lg:items-center lg:justify-between lg:py-16 lg:px-8"
     >
